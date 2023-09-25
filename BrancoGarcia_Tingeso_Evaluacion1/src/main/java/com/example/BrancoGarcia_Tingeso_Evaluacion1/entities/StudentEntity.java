@@ -1,24 +1,49 @@
 package com.example.BrancoGarcia_Tingeso_Evaluacion1.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.Date;
+import java.util.List;
+
+@Entity
+@Table(name = "students")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class StudentEntity {
+    // Atributos de la entidad
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id_Student; // atributo llave
 
+    /*
+    @OneToMany(mappedBy = "id_Student")
+    @JsonIgnore
+    private List<CuotaEntity> cuotas; // el estudiante tiene una lista de cuotas
+     */
+
     @Column(unique = true, nullable = false)
-    private String rut;
+    private String rut; // rut del estudiante
 
-    private String email;
+    private String name; // nombre del estudiante
+    private String last_name; // apellido del estudiante
+    private String email; // email del estudiante
+    private Date birthday; // año de nacimiento
+    private String school_name; // nombre de la escuela
+    private Long school_type; // tipo de escuela (1: municipal, 2: subvencionado, 3: privado)
+    private Integer senior_year; // año de egreso de la escuela
+    private Integer num_exams; // numero de examenes realizados por el estudiante (inicializa en 0)
+    private Integer payment_type; // tipo de pago para el arancel(0: contado, 1: en cuotas)
+    private Integer installments; // numero de cuotas (si es 0, significa que será pago al contado)
+    private Integer tariff; // arancel total a pagar considerando descuentos
+    private Integer exams_mean; // promedio del estudiante (se actualiza a través del excel de examenes)
 
-    private String name;
-
-    private String last_name;
+    // setters y getters:
 
     public Long getId_Student() {
         return id_Student;
@@ -58,5 +83,77 @@ public class StudentEntity {
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getSchool_name() {
+        return school_name;
+    }
+
+    public void setSchool_name(String school_name) {
+        this.school_name = school_name;
+    }
+
+    public Long getSchool_type() {
+        return school_type;
+    }
+
+    public void setSchool_type(Long school_type) {
+        this.school_type = school_type;
+    }
+
+    public Integer getSenior_year() {
+        return senior_year;
+    }
+
+    public void setSenior_year(Integer senior_year) {
+        this.senior_year = senior_year;
+    }
+
+    public Integer getNum_exams() {
+        return num_exams;
+    }
+
+    public void setNum_exams(Integer num_exams) {
+        this.num_exams = num_exams;
+    }
+
+    public Integer getPayment_type() {
+        return payment_type;
+    }
+
+    public void setPayment_type(Integer payment_type) {
+        this.payment_type = payment_type;
+    }
+
+    public Integer getInstallments() {
+        return installments;
+    }
+
+    public void setInstallments(Integer installments) {
+        this.installments = installments;
+    }
+
+    public Integer getTariff() {
+        return tariff;
+    }
+
+    public void setTariff(Integer tariff) {
+        this.tariff = tariff;
+    }
+
+    public Integer getExams_mean() {
+        return exams_mean;
+    }
+
+    public void setExams_mean(Integer exams_mean) {
+        this.exams_mean = exams_mean;
     }
 }

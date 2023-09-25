@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro de estudiante</title>
+</head>
+<body>
+<h2>Registro de Estudiante para PreUniversitario</h2>
+<form action="/register_student" method="POST">
+    <label for="name">Nombre:</label>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <label for="last_name">Apellido:</label>
+    <input type="text" id="last_name" name="last_name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <label for="rut">RUT:</label>
+    <input type="text" id="rut" name="rut" required><br><br>
+
+    <label for="birth_date">Fecha de Nacimiento:</label>
+    <input type="date" id="birth_date" name="birth_date" required><br><br>
+
+    <label for="senior_year">Año de Egreso:</label>
+    <select id="senior_year" name="senior_year" required>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+        <option value="2020">2020</option>
+        <option value="2019">2019</option>
+        <option value="2018">2018</option>
+        <option value="0">Otro año</option>
+        <!-- solo nos importa los 5 años antes del 2023 para saber si aplicamos descuento -->
+
+    </select><br><br>
+
+    <label for="school_name">Nombre de la Escuela:</label>
+    <input type="text" id="school_name" name="school_name" required><br><br>
+
+    <label for="school_type">Tipo de Escuela:</label>
+    <select id="school_type" name="school_type" required>
+        <option value="1">Municipal</option>
+        <option value="2">Subvencionado</option>
+        <option value="3">Privado</option>
+    </select><br><br>
+
+    <label for="installments">Número de Cuotas:</label>
+    <select id="installments" name="installments" required>
+        <option value="0">Pago al contado</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+    </select><br><br>
+
+    <input type="submit" value="Registrar">
+</form>
+</body>
+</html>
