@@ -21,11 +21,9 @@ public class StudentEntity {
     @Column(unique = true, nullable = false)
     private Long id_Student; // atributo llave
 
-    /*
     @OneToMany(mappedBy = "id_Student")
     @JsonIgnore
-    private List<CuotaEntity> cuotas; // el estudiante tiene una lista de cuotas
-     */
+    private List<InstallmentEntity> all_installments; // el estudiante tiene una lista de cuotas
 
     @Column(unique = true, nullable = false)
     private String rut; // rut del estudiante
@@ -39,7 +37,7 @@ public class StudentEntity {
     private Integer senior_year; // año de egreso de la escuela
     private Integer num_exams; // numero de examenes realizados por el estudiante (inicializa en 0)
     private Integer payment_type; // tipo de pago para el arancel(0: contado, 1: en cuotas)
-    private Integer installments; // numero de cuotas (si es 0, significa que será pago al contado)
+    private Integer num_installments; // numero de cuotas (si es 0, significa que será pago al contado)
     private Integer tariff; // arancel total a pagar considerando descuentos
     private Integer exams_mean; // promedio del estudiante (se actualiza a través del excel de examenes)
 
@@ -133,12 +131,12 @@ public class StudentEntity {
         this.payment_type = payment_type;
     }
 
-    public Integer getInstallments() {
-        return installments;
+    public Integer getNum_installments() {
+        return num_installments;
     }
 
-    public void setInstallments(Integer installments) {
-        this.installments = installments;
+    public void setNum_installments(Integer installments) {
+        this.num_installments = installments;
     }
 
     public Integer getTariff() {
@@ -155,5 +153,13 @@ public class StudentEntity {
 
     public void setExams_mean(Integer exams_mean) {
         this.exams_mean = exams_mean;
+    }
+
+    public List<InstallmentEntity> getAll_installments() {
+        return all_installments;
+    }
+
+    public void setAll_installments(List<InstallmentEntity> all_installments) {
+        this.all_installments = all_installments;
     }
 }

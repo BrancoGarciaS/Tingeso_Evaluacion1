@@ -1,6 +1,9 @@
 package com.example.BrancoGarcia_Tingeso_Evaluacion1.controllers;
 
+import com.example.BrancoGarcia_Tingeso_Evaluacion1.entities.InstallmentEntity;
 import com.example.BrancoGarcia_Tingeso_Evaluacion1.entities.StudentEntity;
+import com.example.BrancoGarcia_Tingeso_Evaluacion1.services.InstallmentService;
+import com.example.BrancoGarcia_Tingeso_Evaluacion1.services.InstallmentsCalculation;
 import com.example.BrancoGarcia_Tingeso_Evaluacion1.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,6 +22,12 @@ import java.util.List;
 public class StudentController {
     @Autowired
     StudentService studentService;
+
+    @Autowired
+    InstallmentsCalculation installmentsCalculation;
+
+    @Autowired
+    InstallmentService installmentService;
 
     @GetMapping("/register")
     public String showRegister() {
@@ -65,19 +74,37 @@ public class StudentController {
         }
         // tipo de pago (iniciara por defecto como contado)
         if(schoolType == 2 && installments > 7){
-            student.setInstallments(7);
+            student.setNum_installments(7);
         }
         else if(schoolType == 3 && installments > 4){
-            student.setInstallments(4);
+            student.setNum_installments(4);
         }
         else{
-            student.setInstallments(installments); // iniciará con 0 cuotas pagas en total
+            student.setNum_installments(installments); // iniciará con 0 cuotas pagas en total
         }
 
-        student.setTariff(1500000); // valor del arancel (cambiara esto cuando haga historia 2)
+        Integer studentTariff = installmentsCalculation.discount_tariff(student);
+        student.setTariff(studentTariff); // valor del arancel con descuento
         student.setExams_mean(0); // promedio de examenes
 
-        return studentService.saveStudents(student);
+        StudentEntity student_saved = studentService.saveStudents(student);
+        if(student.getPayment_type() == 1){ // si paga en cuotas
+            List<InstallmentEntity> cuotas = new ArrayList<>();
+            // divido el arancel con descuento entre el numero de cuotas
+            float monto_por_cuota = (float) student.getTariff() / student.getNum_installments();
+            for (int i = 0; i < student.getNum_installments(); i++) {
+                // acá voy creando cada cuota en el momento
+                InstallmentEntity cuota = new InstallmentEntity();
+                cuota.setInstallmentState(0); // 0 para pendiente (pago pendiente)
+                cuota.setPayment_amount(monto_por_cuota);
+                cuota.setId_Student(student_saved); // le agrego el estudiante asociado
+
+                installmentService.saveData(cuota); // guardo la cuota en la base de datos
+                cuotas.add(cuota); // agrego la cuota a la lista de cuotas del usuario
+            }
+            student_saved.setAll_installments(cuotas);
+        }
+        return studentService.saveStudents(student_saved);
     }
 
 
