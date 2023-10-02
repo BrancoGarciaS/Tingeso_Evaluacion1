@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Estudiante registrado con éxito</title>
+</head>
+<body>
+<h2>Registro con éxito - Detalles del Estudiante</h2>
+<p>Nombre: <span th:text="${student.name}"></span></p>
+<p>Apellido: <span th:text="${student.last_name}"></span></p>
+<p>Rut: <span th:text="${student.rut}"></span></p>
+<p>Email: <span th:text="${student.email}"></span></p>
+<!-- <p>Edad: <span th:text="${#dates.format(student.senior_date, 'dd/MM/yyyy')}"></span></p> -->
+<p>Edad: <span th:text="${student.age}"></span></p>
+<p>Nombre de la Escuela: <span th:text="${student.school_name}"></span></p>
+<p>Tipo de Escuela:
+    <span th:switch="${student.school_type}">
+          <span th:case="1">Municipal</span>
+          <span th:case="2">Subvencionado</span>
+          <span th:case="3">Privado</span>
+          <span th:case="*">Desconocido</span>
+    </span>
+</p>
+<p>Año de egreso: <span th:text="${student.senior_year}"></span></p>
+<p>Número de exámenes: <span th:text="${student.num_exams}"></span></p>
+<p>Promedio de exámenes:
+    <span th:if="${student.score >= 0}" th:text="${student.score}"
+            th:unless="${student.score < 0}">
+        Sin asignar
+    </span>
+</p>
+
+<p>Tipo de pago:
+    <span th:switch="${student.payment_type}">
+      <span th:case="0">Pago al contado</span>
+      <span th:case="1">Pago en cuotas</span>
+    </span>
+</p>
+<p>Número de cuotas: <span th:text="${student.num_installments}"></span></p>
+<p>Arancel (con descuento): <span th:text="${student.tariff}"></span></p>
+
+</body>
+</html>

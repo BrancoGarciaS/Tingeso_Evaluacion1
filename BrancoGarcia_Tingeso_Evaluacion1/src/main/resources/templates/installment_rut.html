@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:c="" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Busqueda de cuotas de estudiante</title>
+</head>
+<body>
+<h1>Buscar Cuotas por Rut</h1>
+<form action="/installment/rut" method="post">
+    <label for="rut_installment">Ingresa el Rut:</label>
+    <input type="text" id="rut_installment" name="rut_installment" required>
+    <button type="submit">Buscar Cuotas</button>
+</form>
+
+<h1>Lista de Cuotas</h1>
+<table>
+
+    <thead>
+    <tr>
+        <th>ID Cuota</th>
+        <th>Estado de Cuota</th>
+        <th>Monto</th>
+        <th>Fecha de Pago</th>
+        <th>Fecha inicial de pago</th>
+        <th>Fecha máxima de pago</th>
+        <th>Pagar</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr th:each = "cuota:${cuotas}">
+        <td th:text = "${cuota.id_installment}"></td>
+        <td>
+            <span th:if="${cuota.installmentState == 0}">sin pagar</span>
+            <span th:if="${cuota.installmentState == 1}">pagado</span>
+        </td>
+
+        <td th:text = "${cuota.payment_amount}"></td>
+        <td th:text = "${cuota.payment_date}"></td>
+        <td th:text = "${cuota.start_date}"></td>
+        <td th:text = "${cuota.due_date}"></td>
+
+        <!--
+        <td>
+            <div th:if="${cuota.installmentState == 0}">
+                <form th:action="@{/cuota/pagar}" method="post">
+                    <input type="hidden" name="cuotaId" th:value="${cuota.id_cuota}">
+                    <button type="submit">Pagar</button>
+                </form>
+            </div>
+        </td>
+        -->
+
+    </tr>
+    </tbody>
+
+</table>
+</body>
+</html>

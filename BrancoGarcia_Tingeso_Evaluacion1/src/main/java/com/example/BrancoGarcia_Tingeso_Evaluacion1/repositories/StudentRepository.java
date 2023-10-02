@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends CrudRepository<StudentEntity, Long> {
     Optional<StudentEntity> findByRut(String rut);
+
 }

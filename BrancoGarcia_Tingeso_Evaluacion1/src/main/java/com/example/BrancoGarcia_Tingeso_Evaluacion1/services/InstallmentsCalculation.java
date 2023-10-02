@@ -48,7 +48,7 @@ public class InstallmentsCalculation {
     public Integer scoreDiscount(StudentEntity estudiante){
         Integer arancel = 1500000; // arancel total sin descuento
         Integer descuento = 0;
-        Integer puntaje = estudiante.getExams_mean();
+        float puntaje = estudiante.getScore();
         if(puntaje >= 950 && puntaje <= 1000){
             descuento = (int) (arancel * 0.1);
         }

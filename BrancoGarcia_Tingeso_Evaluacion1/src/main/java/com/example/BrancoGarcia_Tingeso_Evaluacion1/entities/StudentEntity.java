@@ -31,15 +31,15 @@ public class StudentEntity {
     private String name; // nombre del estudiante
     private String last_name; // apellido del estudiante
     private String email; // email del estudiante
-    private Date birthday; // año de nacimiento
+    private Integer age; // año de nacimiento
     private String school_name; // nombre de la escuela
     private Long school_type; // tipo de escuela (1: municipal, 2: subvencionado, 3: privado)
     private Integer senior_year; // año de egreso de la escuela
-    private Integer num_exams; // numero de examenes realizados por el estudiante (inicializa en 0)
+    private Long num_exams; // numero de examenes realizados por el estudiante (inicializa en 0)
+    private float score; // promedio del estudiante (se actualiza a través del excel de examenes)
     private Integer payment_type; // tipo de pago para el arancel(0: contado, 1: en cuotas)
     private Integer num_installments; // numero de cuotas (si es 0, significa que será pago al contado)
     private Integer tariff; // arancel total a pagar considerando descuentos
-    private Integer exams_mean; // promedio del estudiante (se actualiza a través del excel de examenes)
 
     // setters y getters:
 
@@ -83,12 +83,12 @@ public class StudentEntity {
         this.last_name = last_name;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public Integer getAge() {
+        return age;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setAge(Integer age) {
+        this.age = age;
     }
 
     public String getSchool_name() {
@@ -115,11 +115,11 @@ public class StudentEntity {
         this.senior_year = senior_year;
     }
 
-    public Integer getNum_exams() {
+    public Long getNum_exams() {
         return num_exams;
     }
 
-    public void setNum_exams(Integer num_exams) {
+    public void setNum_exams(Long num_exams) {
         this.num_exams = num_exams;
     }
 
@@ -147,12 +147,12 @@ public class StudentEntity {
         this.tariff = tariff;
     }
 
-    public Integer getExams_mean() {
-        return exams_mean;
+    public float getScore() {
+        return score;
     }
 
-    public void setExams_mean(Integer exams_mean) {
-        this.exams_mean = exams_mean;
+    public void setScore(float exams_mean) {
+        this.score = exams_mean;
     }
 
     public List<InstallmentEntity> getAll_installments() {
