@@ -40,16 +40,14 @@
         <td th:text = "${cuota.start_date}"></td>
         <td th:text = "${cuota.due_date}"></td>
 
-        <!--
         <td>
             <div th:if="${cuota.installmentState == 0}">
-                <form th:action="@{/cuota/pagar}" method="post">
-                    <input type="hidden" name="cuotaId" th:value="${cuota.id_cuota}">
+                <form th:action="@{/installment/pay}" method="post">
+                    <input type="hidden" name="installmentId" th:value="${cuota.id_installment}">
                     <button type="submit">Pagar</button>
                 </form>
             </div>
         </td>
-        -->
 
     </tr>
     </tbody>
