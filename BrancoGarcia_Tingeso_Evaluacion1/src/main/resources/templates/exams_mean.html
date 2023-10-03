@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Promedio de Exámenes</title>
+</head>
+<body>
+<h1>Promedio de Exámenes</h1>
+
+<form method="get" action="/exam/save_mean">
+    <button type="submit">Guardar Media</button>
+</form>
+
+<table>
+    <thead>
+    <tr>
+        <th>RUT</th>
+        <th>Promedio</th>
+        <th>Número de Exámenes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="result : ${results}">
+        <td th:text="${result[0]}"></td>
+        <td th:text="${result[1]}"></td>
+        <td th:text="${result[2]}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

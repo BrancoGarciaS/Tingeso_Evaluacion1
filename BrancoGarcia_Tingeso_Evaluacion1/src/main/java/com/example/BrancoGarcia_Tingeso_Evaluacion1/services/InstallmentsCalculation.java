@@ -1,5 +1,6 @@
 package com.example.BrancoGarcia_Tingeso_Evaluacion1.services;
 
+import com.example.BrancoGarcia_Tingeso_Evaluacion1.entities.InstallmentEntity;
 import com.example.BrancoGarcia_Tingeso_Evaluacion1.entities.StudentEntity;
 import org.springframework.stereotype.Service;
 
@@ -45,20 +46,20 @@ public class InstallmentsCalculation {
         return tariff;
     }
 
-    public Integer scoreDiscount(StudentEntity estudiante){
-        Integer arancel = 1500000; // arancel total sin descuento
-        Integer descuento = 0;
-        float puntaje = estudiante.getScore();
-        if(puntaje >= 950 && puntaje <= 1000){
-            descuento = (int) (arancel * 0.1);
+    public float scoreDiscount(InstallmentEntity installment, float exam_score){
+        float m = installment.getPayment_amount();
+        if(exam_score <= 1000 && exam_score >= 950){
+            // como el descuento es del 10% se retorna el 90% del monto de la cuota
+            return (float) (m * 0.9);
         }
-        else if(puntaje >= 900 && puntaje <= 949){
-            descuento = (int) (arancel * 0.05);
+        else if(exam_score < 950 && exam_score >= 900){
+            // como el descuento es del 5% se retorna el 95% del monto de la cuota
+            return (float) (m * 0.95);
         }
-        else if(puntaje >= 850 && puntaje <= 899){
-            descuento = (int) (arancel * 0.02);
+        else if(exam_score < 900 && exam_score >= 850){
+            // como el descuento es del 2% se retorna el 98% del monto de la cuota
+            return (float) (m * 0.98);
         }
-        // menos de 850 no tiene descuento
-        return descuento;
+        return m;
     }
 }
