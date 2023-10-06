@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Top Education</title>
+    <style>
+        body{
+            background-color: #FFCB9C;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+          }
+          .container{  /* para el contenedor de la pagina */
+            background-color: #FFEADB;
+            border: #FFF5EF;
+            padding: 20px;
+            height: 600px;
+            width: 1200px; /*ancho*/
+            margin: 0 auto;
+            border: 2px solid #FFAF79;
+          }
+          .home_title{
+            background-color: #FF9A76; /* Color de fondo del rectángulo */
+            border: 1px solid red; /* Borde rojo de 2 píxeles */
+            padding: 2px; /* Espacio interno alrededor del título */
+            display: inline-block; /* Hace que el contenedor sea un bloque en línea */
+            font-family: 'Calisto MT', cursive; /* Cambia la fuente a Arial */
+            color: black; /* Cambia el color del texto a rojo */
+            height: 60px;
+            width: 900px;
+            line-height: 20px; /* Ajusta verticalmente el texto al centro */
+          }
+          .text_box{
+            background-color: #FD9092;
+            border:1px solid #FF3D47;
+            font-family: Arial, cursive;
+            color: black;
+            padding: 3px;
+          }
+          .text_box2{
+            background-color: #FD9092;
+            width: 600px;
+            display: inline-block;
+            height: 45px;
+            line-height: 4px;
+            font-family: 'Calisto MT', 'Times New Roman', Vegur, 'PT Sans', Verdana, cursive;
+            font-size: 14px;
+          }
+          button{
+            color: black;
+            background-color: #FFCB9C;
+            height: 43px;
+            width: 500px;
+            font-family: Arial, 'georgia', fantasy;
+            font-size: 17px;
+            /*font-weight: bold;*/
+          }
+
+
+    </style>
+</head>
+<body>
+<div class = "container">
+    <div class = "home_title">
+        <h1>Bienvenido a la academia preuniversitaria TopEducation</h1>
+    </div>
+    <br><br><br>
+    <div class = "text_box">
+        <h4>
+            La academia preuniversitaria TopEducation es un preuniversitario ubicado en la
+            ciudad de Santiago. Tiene más de 15 años preparando jóvenes con una educación de calidad
+            para que tengan rendimientos académicos óptimos de tal manera que puedan lograr rendir
+            satisfactoriamente las pruebas de admisión a las universidades del país
+        </h4>
+    </div>
+    <br>
+    <div class = "text_box2">
+        <h2>Selecciona una acción en torno a los datos del estudiante</h2>
+    </div>
+
+    <br><br>
+    <form action="/search_details" method="get">
+        <button type="submit">Buscar información</button>
+    </form>
+
+    <br><br>
+    <form action="/installment/search_by_rut" method="get">
+        <button type="submit">Ver y pagar cuotas de pago</button>
+    </form>
+
+    <br><br>
+    <form action="/report" method="get">
+        <button type="submit">Generar reporte</button>
+    </form>
+
+
+</div>
+</body>
+</html>
+

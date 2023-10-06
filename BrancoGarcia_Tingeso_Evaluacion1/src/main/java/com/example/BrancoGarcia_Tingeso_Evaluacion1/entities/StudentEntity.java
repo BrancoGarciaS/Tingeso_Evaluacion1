@@ -40,6 +40,7 @@ public class StudentEntity {
     private Integer payment_type; // tipo de pago para el arancel(0: contado, 1: en cuotas)
     private Integer num_installments; // numero de cuotas (si es 0, significa que será pago al contado)
     private Integer tariff; // arancel total a pagar considerando descuentos
+    private Integer tuition; // matrícula
 
     // setters y getters:
 
@@ -161,5 +162,13 @@ public class StudentEntity {
 
     public void setAll_installments(List<InstallmentEntity> all_installments) {
         this.all_installments = all_installments;
+    }
+
+    public Integer getTuition() {
+        return tuition;
+    }
+
+    public void setTuition(Integer tuition) {
+        this.tuition = tuition;
     }
 }

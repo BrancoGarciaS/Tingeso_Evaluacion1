@@ -26,11 +26,22 @@ public class ExamController {
     }
 
     @PostMapping("/load_excel")
-    public String subirExcel(@RequestParam("file") MultipartFile file){
-        examService.saveFile(file);
-        String filename = file.getOriginalFilename();
-        examService.readCsv(filename);
-        return "excel_page";
+    public ModelAndView subirExcel(@RequestParam("file") MultipartFile file){
+        try {
+            examService.saveFile(file);
+            String filename = file.getOriginalFilename();
+            examService.readCsv(filename);
+            ModelAndView modelAndView = new ModelAndView("excel_page");
+            String m = "Archivo cargado con éxito";
+            modelAndView.addObject("exit", m);
+            return modelAndView;
+        } catch (Exception e) {
+            // En caso de error, se manda mensaje de error
+            ModelAndView modelAndView = new ModelAndView("excel_page");
+            String m = "Error, problema al cargar archivo";
+            modelAndView.addObject("fail", m);
+            return modelAndView;
+        }
     }
 
     @GetMapping("/load_mean")
@@ -42,10 +53,13 @@ public class ExamController {
     }
 
     @GetMapping("/save_mean")
-    public String saveMean(){
+    public ModelAndView saveMean(){
         List<Object[]> results = examService.saveMean();
         examService.deleteAllExams(); // borro todos los examenes de la base de datos
-        return "mean_exit";
+        ModelAndView modelAndView = new ModelAndView("exams_mean");
+        String m = "Promedios guardados con éxito";
+        modelAndView.addObject("exit_mean", m);
+        return modelAndView;
     }
 
 }

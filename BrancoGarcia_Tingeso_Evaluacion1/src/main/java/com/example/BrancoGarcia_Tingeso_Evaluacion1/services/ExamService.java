@@ -4,8 +4,6 @@ import com.example.BrancoGarcia_Tingeso_Evaluacion1.entities.ExamEntity;
 import com.example.BrancoGarcia_Tingeso_Evaluacion1.entities.InstallmentEntity;
 import com.example.BrancoGarcia_Tingeso_Evaluacion1.entities.StudentEntity;
 import com.example.BrancoGarcia_Tingeso_Evaluacion1.repositories.ExamRepository;
-import com.example.BrancoGarcia_Tingeso_Evaluacion1.repositories.InstallmentRepository;
-import com.example.BrancoGarcia_Tingeso_Evaluacion1.repositories.StudentRepository;
 import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,13 +38,13 @@ public class ExamService {
         return (ArrayList<ExamEntity>) examRepository.findAll();
     }
 
-    public void saveDataDB(String rut, String date, String score){
+    public ExamEntity saveDataDB(String rut, String date, String score){
         ExamEntity exam = new ExamEntity();
         exam.setRut(rut);
         exam.setExam_date(date);
         exam.setExam_score(Float.parseFloat(score));
         exam.setLoad_date(LocalDate.now());
-        examRepository.save(exam);
+        return examRepository.save(exam);
     }
 
     public void deleteAllExams(){
@@ -120,7 +118,6 @@ public class ExamService {
     public List<Object[]> saveMean(){
         // agrupo por rut y calculo media
         List<Object[]> results = examRepository.groupMean();
-
         for (Object[] result : results) {
             // por cada fila de la consulta
             String rut = (String) result[0];

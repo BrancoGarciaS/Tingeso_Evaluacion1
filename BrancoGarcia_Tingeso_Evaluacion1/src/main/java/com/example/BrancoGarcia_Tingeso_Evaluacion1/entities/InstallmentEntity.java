@@ -25,6 +25,7 @@ public class InstallmentEntity {
     private LocalDate due_date; // fecha de vencimiento
     private LocalDate start_date;  // fecha de inicio
     private LocalDate payment_date;  // fecha de pago
+    private LocalDate interest_date; // fecha donde se aplicó el interés
 
     @ManyToOne
     @JoinColumn(name = "id_Student")
@@ -92,5 +93,13 @@ public class InstallmentEntity {
 
     public void setStart_date(LocalDate start_date) {
         this.start_date = start_date;
+    }
+
+    public LocalDate getInterest_date() {
+        return interest_date;
+    }
+
+    public void setInterest_date(LocalDate interest_date) {
+        this.interest_date = interest_date;
     }
 }

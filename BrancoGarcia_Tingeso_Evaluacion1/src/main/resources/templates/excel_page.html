@@ -1,13 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Cargar Archivo Excel</title>
+    <style>
+        body {
+            background-color: #FFCB9C;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #FFEADB;
+            padding: 20px;
+            width: 800px;
+            margin: 0 auto;
+            border: 2px solid #FFAF79;
+        }
+
+        h1 {
+            background-color: #FF9A76;
+            border: 1px solid red;
+            padding: 2px;
+            display: inline-block;
+            font-family: 'Calisto MT', cursive;
+            color: black;
+            height: 60px;
+            width: 600px;
+            line-height: 60px;
+        }
+
+
+        button {
+            color: black;
+            background-color: #FFCB9C;
+            height: 43px;
+            width: 500px;
+            font-family: Arial, 'georgia', fantasy;
+            font-size: 17px;
+            margin: 10px 0;
+        }
+
+        div {
+            background-color: #FD9092;
+            border: 1px solid #FF3D47;
+            font-family: Arial, cursive;
+            color: black;
+            padding: 10px;
+        }
+
+        input[type="file"] + label {
+            color: black;
+            background-color: #FFCB9C;
+            height: 43px;
+            width: 500px;
+            font-family: Arial, 'georgia', fantasy;
+            font-size: 17px;
+            padding: 10px;
+            cursor: pointer;
+            display: inline-block;
+            border: none;
+            margin-top: 10px;
+        }
+
+    </style>
 </head>
 <body>
+<div class = "container">
 <h1>Cargar Archivo Excel</h1>
 <form method="post" action="/exam/load_excel" enctype="multipart/form-data">
     <input type="file" name="file" accept=".csv">
+    <br><br>
     <button type="submit">Subir Excel</button>
 </form>
 
@@ -15,6 +82,15 @@
     <button type="submit">Calcular Media</button>
 </form>
 
+<br> <br>
+<div th:if="${fail}">
+    <p>Mensaje: <span th:text="${fail}"></span></p>
+</div>
 
+<div th:if="${exit}">
+    <p>Mensaje: <span th:text="${exit}"></span></p>
+</div>
+
+</div>
 </body>
 </html>

@@ -3,8 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <title>Estudiante registrado con éxito</title>
+    <style>
+        body {
+            background-color: #FFCB9C;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            background-color: #FFEADB;
+            padding: 20px;
+            width: 800px;
+            margin: 0 auto;
+            border: 2px solid #FFAF79;
+        }
+
+        h2 {
+            background-color: #FF9A76;
+            border: 1px solid red;
+            padding: 10px;
+            display: inline-block;
+            font-family: 'Calisto MT', cursive;
+            color: black;
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        span[th:switch] {
+            font-weight: normal;
+        }
+
+        span[th:if][th:unless] {
+            color: #999;
+            font-style: italic;
+        }
+
+        span[th:switch] {
+            font-weight: normal;
+        }
+
+        span[th:text="${student.num_installments}"] {
+            color: #FF3D47;
+            font-weight: bold;
+        }
+
+        span[th:text="${student.tariff}"] {
+            color: #006400;
+            font-weight: bold;
+        }
+
+    </style>
 </head>
 <body>
+<div class = "container">
 <h2>Registro con éxito - Detalles del Estudiante</h2>
 <p>Nombre: <span th:text="${student.name}"></span></p>
 <p>Apellido: <span th:text="${student.last_name}"></span></p>
@@ -25,7 +86,7 @@
 <p>Número de exámenes: <span th:text="${student.num_exams}"></span></p>
 <p>Promedio de exámenes:
     <span th:if="${student.score >= 0}" th:text="${student.score}"
-            th:unless="${student.score < 0}">
+          th:unless="${student.score < 0}">
         Sin asignar
     </span>
 </p>
@@ -38,6 +99,7 @@
 </p>
 <p>Número de cuotas: <span th:text="${student.num_installments}"></span></p>
 <p>Arancel (con descuento): <span th:text="${student.tariff}"></span></p>
-
+    <p>Matrícula: <span th:text="${student.tuition}"></span></p>
+</div>
 </body>
 </html>

@@ -3,24 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <title>Registro de estudiante</title>
+    <style>
+        body {
+            background-color: #FFCB9C;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container{  /* para el contenedor de la pagina */
+            background-color: #FFEADB;
+            border: #FFF5EF;
+            padding: 20px;
+            height: 850px;
+            width: 1200px; /*ancho*/
+            margin: 0 auto;
+            border: 2px solid #FFAF79;
+          }
+
+        h2 {
+            background-color: #FF9A76;
+            border: 1px solid red;
+            padding: 10px;
+            display: inline-block;
+            font-family: 'Calisto MT', cursive;
+            color: black;
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 20px;
+        }
+
+        form {
+            width: 80%;
+            margin: 0 auto;
+            text-align: left;
+            padding: 20px;
+            background-color: #FFEADB;
+            border: 2px solid #FFAF79;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #FFAF79;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: #FFCB9C;
+            color: black;
+            padding: 10px 20px;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
 </head>
 <body>
+<div class = "container">
 <h2>Registro de Estudiante para PreUniversitario</h2>
 <form action="/register_student" method="POST">
     <label for="name">Nombre:</label>
-    <input type="text" id="name" name="name" required><br><br>
+    <input type="text" id="name" name="name" required>
 
     <label for="last_name">Apellido:</label>
-    <input type="text" id="last_name" name="last_name" required><br><br>
+    <input type="text" id="last_name" name="last_name" required>
 
     <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br><br>
+    <input type="email" id="email" name="email" required>
 
     <label for="rut">RUT:</label>
-    <input type="text" id="rut" name="rut" required><br><br>
+    <input type="text" id="rut" name="rut" required>
 
     <label for="birth_date">Fecha de Nacimiento:</label>
-    <input type="date" id="birth_date" name="birth_date" required><br><br>
+    <input type="date" id="birth_date" name="birth_date" required>
 
     <label for="senior_year">Año de Egreso:</label>
     <select id="senior_year" name="senior_year" required>
@@ -32,23 +101,21 @@
         <option value="2018">2018</option>
         <option value="0">Otro año</option>
         <!-- solo nos importa los 5 años antes del 2023 para saber si aplicamos descuento -->
-
-    </select><br><br>
+    </select>
 
     <label for="school_name">Nombre de la Escuela:</label>
-    <input type="text" id="school_name" name="school_name" required><br><br>
+    <input type="text" id="school_name" name="school_name" required>
 
     <label for="school_type">Tipo de Escuela:</label>
     <select id="school_type" name="school_type" required>
         <option value="1">Municipal</option>
         <option value="2">Subvencionado</option>
         <option value="3">Privado</option>
-    </select><br><br>
+    </select>
 
     <label for="installments">Número de Cuotas:</label>
     <select id="installments" name="installments" required>
         <option value="0">Pago al contado</option>
-        <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
@@ -58,9 +125,10 @@
         <option value="8">8</option>
         <option value="9">9</option>
         <option value="10">10</option>
-    </select><br><br>
+    </select>
 
     <input type="submit" value="Registrar">
 </form>
+</div>
 </body>
 </html>

@@ -47,7 +47,7 @@ public class StudentController {
     // Para registrar a un estudiante
     @PostMapping("/register_student")
     @ResponseBody
-    public ModelAndView saveStudent(Model model, @RequestParam("name") String name,
+    public ModelAndView saveStudent(@RequestParam("name") String name,
                                      @RequestParam("last_name") String lastName,
                                      @RequestParam("email") String email,
                                      @RequestParam("rut") String rut,
@@ -63,10 +63,28 @@ public class StudentController {
             ModelAndView m = new ModelAndView("error_register");
             return m;
         }
-        ModelAndView modelAndView = new ModelAndView("student-details");
+        ModelAndView modelAndView = new ModelAndView("exit_register");
         modelAndView.addObject("student", s);
         return modelAndView;
     }
 
+    @GetMapping("/search_details")
+    public String details(){
+        return "detailsRut";
+    }
+
+    @PostMapping("/student_details")
+    @ResponseBody
+    public ModelAndView detailsStudent(@RequestParam("student_rut") String rut){
+        ModelAndView m = new ModelAndView("detailsRut");
+        if(studentService.getByRut(rut).isPresent()){ // si el estudiante está registrado
+            StudentEntity s = studentService.getByRut(rut).get();
+            m.addObject("student", s);
+            return m;
+        }
+        String fail = "Error, estudiante no registrado";
+        m.addObject("error", fail);
+        return m;
+    }
 
 }

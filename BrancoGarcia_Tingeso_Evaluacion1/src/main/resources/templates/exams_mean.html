@@ -3,13 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <title>Promedio de Exámenes</title>
+    <style>
+        body {
+        background-color: #FFCB9C;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        }
+
+     .container{  /* para el contenedor de la pagina */
+        background-color: #FFEADB;
+        border: #FFF5EF;
+        padding: 20px;
+        height: 600px;
+        width: 1200px; /*ancho*/
+        margin: 0 auto;
+        border: 2px solid #FFAF79;
+      }
+
+        h1 {
+        background-color: #FF9A76;
+        border: 1px solid red;
+        padding: 2px;
+        display: inline-block;
+        font-family: 'Calisto MT', cursive;
+        color: black;
+        height: 60px;
+        width: 600px;
+        line-height: 60px; /* Alinear verticalmente el texto */
+        }
+
+        button {
+        color: black;
+        background-color: #FFCB9C;
+        height: 43px;
+        width: 500px;
+        font-family: Arial, 'georgia', fantasy;
+        font-size: 17px;
+        margin: 20px 0;
+        }
+
+        div {
+        background-color: #FD9092;
+        border: 1px solid #FF3D47;
+        font-family: Arial, cursive;
+        color: black;
+        padding: 10px;
+        }
+
+        table {
+        width: 80%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        }
+
+        th {
+        background-color: #FF9A76;
+        border: 1px solid red;
+        padding: 8px;
+        }
+
+        td {
+        background-color: #FFEADB;
+        border: 1px solid #FFAF79;
+        padding: 8px;
+        }
+    </style>
 </head>
 <body>
+<div class = "container">
 <h1>Promedio de Exámenes</h1>
 
 <form method="get" action="/exam/save_mean">
     <button type="submit">Guardar Media</button>
 </form>
+
+<div th:if="${exit_mean}">
+    <p>Mensaje: <span th:text="${exit_mean}"></span></p>
+</div>
 
 <table>
     <thead>
@@ -27,5 +101,6 @@
     </tr>
     </tbody>
 </table>
+</div>
 </body>
 </html>

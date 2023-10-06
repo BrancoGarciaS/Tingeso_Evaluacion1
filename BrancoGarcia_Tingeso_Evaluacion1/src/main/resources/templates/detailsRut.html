@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Datos del estudiante</title>
+    <style>
+        body {
+            background-color: #FFCB9C;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #FFEADB;
+            padding: 20px;
+            width: 800px;
+            margin: 0 auto;
+            border: 2px solid #FFAF79;
+        }
+
+        h1 {
+            background-color: #FF9A76;
+            border: 1px solid red;
+            padding: 2px;
+            display: inline-block;
+            font-family: 'Calisto MT', cursive;
+            color: black;
+            height: 60px;
+            width: 600px; /* ancho */
+            line-height: 60px; /* Alinear verticalmente texto */
+        }
+
+        h4 {
+            background-color: #FD9092;
+            border: 1px solid #FF3D47;
+            font-family: Arial, cursive;
+            color: black;
+            padding: 3px;
+        }
+
+        /* Estilos para los botones */
+        button {
+            color: black;
+            background-color: #FFCB9C;
+            height: 43px;
+            width: 500px;
+            font-family: Arial, 'georgia', fantasy;
+            font-size: 17px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class = "container">
+
+<h1>Buscar datos por Rut</h1>
+<br>
+<form action="/student_details" method="post">
+    <label for="student_rut">Ingresa el Rut:</label>
+    <input type="text" id="student_rut" name="student_rut" required>
+    <br><br>
+    <button type="submit">Buscar Información</button>
+</form>
+<br>
+<div th:if="${error}">
+    <p>Mensaje: <span th:text="${error}"></span></p>
+</div>
+<br>
+<div th:if="${student}">
+    <h2>Detalles del Estudiante</h2>
+    <p>Nombre: <span th:text="${student.name}"></span></p>
+    <p>Apellido: <span th:text="${student.last_name}"></span></p>
+    <p>Rut: <span th:text="${student.rut}"></span></p>
+    <p>Email: <span th:text="${student.email}"></span></p>
+    <p>Edad: <span th:text="${student.age}"></span></p>
+    <p>Nombre de la Escuela: <span th:text="${student.school_name}"></span></p>
+    <p>Tipo de Escuela:
+        <span th:switch="${student.school_type}">
+              <span th:case="1">Municipal</span>
+              <span th:case="2">Subvencionado</span>
+              <span th:case="3">Privado</span>
+              <span th:case="*">Desconocido</span>
+        </span>
+    </p>
+    <p>Año de egreso: <span th:text="${student.senior_year}"></span></p>
+    <p>Número de exámenes: <span th:text="${student.num_exams}"></span></p>
+    <p>Promedio de exámenes
+        <span th:if="${student.score >= 0}" th:text="${student.score}"
+              th:unless="${student.score < 0}">
+                    Sin asignar
+                </span>
+    </p>
+    <p>Tipo de pago:
+        <span th:switch="${student.payment_type}">
+          <span th:case="0">Pago al contado</span>
+          <span th:case="1">Pago en cuotas</span>
+        </span>
+    </p>
+    <p>Número de cuotas: <span th:text="${student.num_installments}"></span></p>
+    <p>Arancel (con descuento): <span th:text="${student.tariff}"></span></p>
+    <p>Matrícula: <span th:text="${student.tuition}"></span></p>
+
+</div>
+</div>
+</body>
+</html>

@@ -81,11 +81,25 @@ public class StudentService {
             student.setNum_installments(installments); // iniciará con 0 cuotas pagas en total
         }
 
+        student.setTuition(70000); // costo de la matrícula
+
         Integer studentTariff = installmentsCalculation.discount_tariff(student); // arancel con descuento
         student.setTariff(studentTariff); // valor del arancel con descuento
         student.setScore(-1); // promedio de examenes
 
         StudentEntity student_saved = saveStudents(student);
+        if(student.getPayment_type() == 0){ // si pagó al contado
+            List<InstallmentEntity> cuotas = new ArrayList<>();
+            InstallmentEntity cuota = new InstallmentEntity();
+            cuota.setInstallmentState(1); // se asume que el pago al contado se realiza inmediatamente
+            cuota.setPayment_date(LocalDate.now());
+            float pago_al_contado = 1500000 / 2;  // 50% del arancel
+            cuota.setPayment_amount(pago_al_contado);
+            cuota.setId_Student(student_saved); // le agrego el estudiante asociado
+            cuota.setRut_installment(rut); // rut del estudiante que pagó al contado
+            installmentService.saveData(cuota); // guardo el pago en la base de datos
+            cuotas.add(cuota); // agrego el pago a la lista de cuotas del usuario
+        }
         if(student.getPayment_type() == 1){ // si paga en cuotas
             List<InstallmentEntity> cuotas = new ArrayList<>();
             // divido el arancel con descuento entre el numero de cuotas
@@ -122,23 +136,19 @@ public class StudentService {
 
     }
 
-    //para obtener estudiante por id (get)
-    public Optional<StudentEntity> getById(Long id){
-        return studentRepository.findById(id);
-    }
-
     // para obtener estudiante por rut (get)
     public Optional<StudentEntity> getByRut(String rut){
         return studentRepository.findByRut(rut);
     }
 
     // para borrar un estudiante por id
-    public String deleteById (Long id){
+    public String deleteById (StudentEntity student){
         try {
-            studentRepository.deleteById(id);
+            studentRepository.deleteById(student.getId_Student());
             return "Usuario eliminado";
         } catch (Exception e) {
             return "No existe usuario con este ID";
         }
     }
+
 }
