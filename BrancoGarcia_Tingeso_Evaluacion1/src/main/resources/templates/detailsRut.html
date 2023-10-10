@@ -103,7 +103,10 @@
     <p>Número de cuotas: <span th:text="${student.num_installments}"></span></p>
     <p>Arancel (con descuento): <span th:text="${student.tariff}"></span></p>
     <p>Matrícula: <span th:text="${student.tuition}"></span></p>
-
+    <br>
+    <form action="/search_rut" method="get">
+        <button type="submit">Volver</button>
+    </form>
 </div>
 </div>
 </body>

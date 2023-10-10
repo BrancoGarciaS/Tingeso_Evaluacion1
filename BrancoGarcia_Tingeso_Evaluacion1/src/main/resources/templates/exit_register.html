@@ -61,6 +61,15 @@
             color: #006400;
             font-weight: bold;
         }
+        /* Estilos para los botones */
+        button {
+            color: black;
+            background-color: #FFCB9C;
+            height: 43px;
+            width: 500px;
+            font-family: Arial, 'georgia', fantasy;
+            font-size: 17px;
+        }
 
     </style>
 </head>
@@ -100,6 +109,10 @@
 <p>Número de cuotas: <span th:text="${student.num_installments}"></span></p>
 <p>Arancel (con descuento): <span th:text="${student.tariff}"></span></p>
     <p>Matrícula: <span th:text="${student.tuition}"></span></p>
+
+    <form action="/" method="get">
+        <button type="submit">Volver</button>
+    </form>
 </div>
 </body>
 </html>

@@ -83,12 +83,11 @@ public class StudentService {
 
         student.setTuition(70000); // costo de la matrícula
 
-        Integer studentTariff = installmentsCalculation.discount_tariff(student); // arancel con descuento
-        student.setTariff(studentTariff); // valor del arancel con descuento
-        student.setScore(-1); // promedio de examenes
+        student.setScore(0); // promedio de examenes
 
         StudentEntity student_saved = saveStudents(student);
         if(student.getPayment_type() == 0){ // si pagó al contado
+            student.setTariff(750000); // descuento del 50%
             List<InstallmentEntity> cuotas = new ArrayList<>();
             InstallmentEntity cuota = new InstallmentEntity();
             cuota.setInstallmentState(1); // se asume que el pago al contado se realiza inmediatamente
@@ -101,6 +100,8 @@ public class StudentService {
             cuotas.add(cuota); // agrego el pago a la lista de cuotas del usuario
         }
         if(student.getPayment_type() == 1){ // si paga en cuotas
+            Integer studentTariff = installmentsCalculation.discount_tariff(student); // arancel con descuento
+            student.setTariff(studentTariff); // valor del arancel con descuento
             List<InstallmentEntity> cuotas = new ArrayList<>();
             // divido el arancel con descuento entre el numero de cuotas
             float monto_por_cuota = (float) student.getTariff() / student.getNum_installments();

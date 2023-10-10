@@ -5,6 +5,7 @@ import com.example.BrancoGarcia_Tingeso_Evaluacion1.entities.ReportEntity;
 import com.example.BrancoGarcia_Tingeso_Evaluacion1.entities.StudentEntity;
 import com.example.BrancoGarcia_Tingeso_Evaluacion1.repositories.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,7 +31,7 @@ public class ReportService {
             // con ese rut
             Optional<ReportEntity> report_rut = reportRepository.findReportByRut(rut);
             StudentEntity student_rut = s.get();
-            if(report_rut.isPresent()){ // si ya se habia creado un reporte con ese rut, se actualiza
+            if(report_rut.isPresent() && student_rut.getPayment_type() == 1){ // si ya se habia creado un reporte con ese rut, se actualiza
                 return updateReport(report_rut.get(), student_rut);
             }
             ArrayList<InstallmentEntity> c = installmentService.getInstallmentsByRut(rut);
@@ -41,6 +42,20 @@ public class ReportService {
             report.setMean_score(student_rut.getScore());
             report.setTotal_tariff(student_rut.getTariff());
             report.setPayment_type(student_rut.getPayment_type());
+            if(student_rut.getPayment_type() == 0){
+                // si pagó al contado
+                report.setNum_installments(1);
+                report.setInteres_tariff(student_rut.getTariff()); // no hay intereses
+                report.setNum_installments_paid(1);
+                if(c.size() > 0){
+                    LocalDate d = c.get(0).getPayment_date();
+                    report.setLast_payment(d); // la ultima fecha de pago y es unica
+                }
+                report.setNum_installments_paid(1); // se ha pagado una cuota
+                report.setTariff_paid(0); // tarifa a pagar
+                report.setLate_installments(0); // 0 cuotas atrasadas
+                return reportRepository.save(report);
+            }
             report.setNum_installments(student_rut.getNum_installments());
             int count_paid = 0; // numero de cuotas pagadas
             float tariff_paid_s = 0; // monto total pagado
@@ -62,6 +77,10 @@ public class ReportService {
                             if(installment_s.getPayment_date().isAfter(last_payment)){
                                 last_payment = installment_s.getPayment_date();
                             }
+                        }
+                        // en caso que aun no se ha encontrado una fecha de pago
+                        else if(last_payment == null && installment_s.getPayment_date() != null){
+                            last_payment = installment_s.getPayment_date();
                         }
                     }
                     else{ // si no está pagada
@@ -115,6 +134,10 @@ public class ReportService {
                         if(installment_s.getPayment_date().isAfter(last_payment)){
                             last_payment = installment_s.getPayment_date();
                         }
+                    }
+                    // en caso que aun no se ha encontrado una fecha de pago
+                    else if(last_payment == null && installment_s.getPayment_date() != null){
+                        last_payment = installment_s.getPayment_date();
                     }
                 }
                 else{ // si no está pagada

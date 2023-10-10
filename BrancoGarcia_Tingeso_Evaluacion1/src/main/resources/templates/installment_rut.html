@@ -110,6 +110,10 @@
     <button type="submit">Buscar Cuotas</button>
 </form>
 
+    <p th:if="${param.rut_installment != null}">
+        RUT ingresado: <span th:text="${param.rut_installment}"></span>
+    </p>
+
 <div th:if="${message_fail}">
     <p>Mensaje: <span th:text="${message_fail}"></span></p>
 </div>
@@ -152,6 +156,10 @@
         </td>
 
     </tr>
+    <br><br>
+    <form action="/search_rut" method="get">
+        <button type="submit">Volver</button>
+    </form>
     </tbody>
 </table>
 

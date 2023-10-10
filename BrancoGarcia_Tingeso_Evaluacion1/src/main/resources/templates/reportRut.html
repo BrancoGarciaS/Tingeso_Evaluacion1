@@ -61,6 +61,8 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      display: block; /* Establecer a bloque para centrar horizontalmente */
+      margin: 0 auto; /* Centrar horizontalmente */
     }
 
     /* Estilos para el mensaje */
@@ -85,6 +87,7 @@
     span[th:switch] {
       font-weight: normal;
     }
+
   </style>
 </head>
 <body>
@@ -94,8 +97,12 @@
 <form action="/report" method="post">
   <label for="rut_report">Ingresa el Rut:</label>
   <input type="text" id="rut_report" name="rut_report" required>
-  <button type="submit">Buscar Cuotas</button>
+  <button type="submit">Buscar/Generar Reporte</button>
 </form>
+
+<p th:if="${param.rut_report != null}">
+  RUT ingresado: <span th:text="${param.rut_report}"></span>
+</p>
 
 <div th:if="${message}">
   <p>Mensaje: <span th:text="${message}"></span></p>
@@ -121,7 +128,11 @@
   <p>Fecha de último pago: <span th:text="${report.last_payment}"></span></p>
   <p>Saldo por pagar: <span th:text="${report.tariff_to_pay}"></span></p>
   <p>Número de cuotas con atrasos: <span th:text="${report.late_installments}"></span></p>
+  <form action="/search_rut" method="get">
+    <button type="submit">Volver</button>
+  </form>
 </div>
+
 
 </body>
 </html>
