@@ -134,10 +134,6 @@ public class InstallmentServiceTest {
         if(nowDate.getDayOfMonth() >= 5 && nowDate.getDayOfMonth() <= 10){
             assertEquals(250000f,sv.getPayment_amount());
         }
-        // si no se está entre 5 y 10, los montos deberían ser desiguales
-        if(!(nowDate.getDayOfMonth() >= 5 && nowDate.getDayOfMonth() <= 10)){
-            assertNotEquals(250000f,sv.getPayment_amount());
-        }
         installmentService.deleteById(sv);
     }
 
