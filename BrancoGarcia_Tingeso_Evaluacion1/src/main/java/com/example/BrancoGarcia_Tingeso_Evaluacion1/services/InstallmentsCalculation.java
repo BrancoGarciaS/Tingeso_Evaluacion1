@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class InstallmentsCalculation {
+    // Para calcular descuento por tipo de escuela
     public Integer schoolTypeDiscount(StudentEntity student){
         Integer tariff = 1500000;  // arancel total sin descuento
         Integer discount = 0; // descuento inicial
@@ -19,6 +20,7 @@ public class InstallmentsCalculation {
         return discount;
     }
 
+    // Para calcular descuento por año de ingreso
     public Integer seniorYearDiscount(StudentEntity student){
         Integer tariff = 1500000;  // arancel total sin descuentos
         Integer discount = 0; // descuento inicial
@@ -38,6 +40,7 @@ public class InstallmentsCalculation {
         return discount;
     }
 
+    // Para aplicar descuento al arancel de 1.500.000
     public Integer discount_tariff(StudentEntity student){
         Integer tariff = 1500000; // arancel total sin descuento
         // aplico cada uno de los descuentos
@@ -46,6 +49,7 @@ public class InstallmentsCalculation {
         return tariff;
     }
 
+    // Para aplicar descuento por puntaje
     public float scoreDiscount(InstallmentEntity installment, float exam_score){
         float m = installment.getPayment_amount();
         if(exam_score <= 1000 && exam_score >= 950){

@@ -21,17 +21,19 @@ public class ReportService {
     @Autowired
     InstallmentService installmentService;
 
+    // Para crear reporte
     public ReportEntity createReport(String rut){
         // actualizar cuotas
         installmentService.apply_interest();
         ReportEntity report = new ReportEntity();
-        Optional<StudentEntity> s = studentService.getByRut(rut);
+        Optional<StudentEntity> s = studentService.getByRut(rut); // obtener estudiante por rut
         if(s.isPresent()){ // si existe el estudiante en la base de datos
             // esta variable sirve en el caso de que se haya creado un reporte previamente
             // con ese rut
             Optional<ReportEntity> report_rut = reportRepository.findReportByRut(rut);
             StudentEntity student_rut = s.get();
-            if(report_rut.isPresent() && student_rut.getPayment_type() == 1){ // si ya se habia creado un reporte con ese rut, se actualiza
+            if(report_rut.isPresent() && student_rut.getPayment_type() == 1){
+                // si ya se habia creado un reporte con ese rut, se actualiza
                 return updateReport(report_rut.get(), student_rut);
             }
             ArrayList<InstallmentEntity> c = installmentService.getInstallmentsByRut(rut);
@@ -47,7 +49,7 @@ public class ReportService {
                 report.setNum_installments(1);
                 report.setInteres_tariff(student_rut.getTariff()); // no hay intereses
                 report.setNum_installments_paid(1);
-                if(c.size() > 0){
+                if(c.size() > 0){ // si tiene más de una cuota
                     LocalDate d = c.get(0).getPayment_date();
                     report.setLast_payment(d); // la ultima fecha de pago y es unica
                 }
@@ -108,6 +110,7 @@ public class ReportService {
         return null;
     }
 
+    // Para actualizar reporte
     public ReportEntity updateReport(ReportEntity report, StudentEntity student_rut){
         String rut = report.getRut();
         ArrayList<InstallmentEntity> c = installmentService.getInstallmentsByRut(rut);

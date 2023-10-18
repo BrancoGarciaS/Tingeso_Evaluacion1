@@ -138,6 +138,11 @@ public class InstallmentServiceTest {
     }
 
     @Test
+    void interest(){
+        installmentService.interest();
+    }
+
+    @Test
     void isLate(){
         InstallmentEntity i1 = new InstallmentEntity();
         i1.setRut_installment("1.999.999.999-K");

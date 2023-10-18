@@ -3,6 +3,7 @@ package com.example.BrancoGarcia_Tingeso_Evaluacion1.services;
 import com.example.BrancoGarcia_Tingeso_Evaluacion1.entities.InstallmentEntity;
 import com.example.BrancoGarcia_Tingeso_Evaluacion1.entities.StudentEntity;
 import com.example.BrancoGarcia_Tingeso_Evaluacion1.repositories.InstallmentRepository;
+import lombok.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,7 @@ public class InstallmentService {
         return installmentRepository.findById(idInstallment);
     }
 
+    // Para pagar una cuota
     public int pay_installment(Optional<InstallmentEntity> installment) {
         LocalDate actualDate = LocalDate.now();
         // Verificar si la fecha actual está entre el 5 y el 10 del mes
@@ -45,7 +47,7 @@ public class InstallmentService {
             // Se realiza el procesamiento de pago aquí
             // Se actualiza el estado de la cuota a "pagado"
             installment_rut.setInstallmentState(1); // 1 para pagado
-            // Establecer la fecha de pago actual, por ejemplo
+            // Establecer la fecha de pago actual
             installment_rut.setPayment_date(LocalDate.now());
             // Guardar la cuota actualizada en la base de datos
             saveData(installment_rut);
@@ -54,7 +56,8 @@ public class InstallmentService {
         return 0; // pago rechazado
     }
 
-
+    // Para aplicar intereses en todas las cuotas y ver si ya se habían aplicado
+    @Generated
     public void apply_interest(){
         LocalDate nowDate = LocalDate.now();
         // obtengo todas las cuotas
@@ -85,6 +88,8 @@ public class InstallmentService {
         }
     }
 
+    // Para cambiar los montos de las cuotas en base del interes
+    @Generated
     public void interest(){
         LocalDate nowDate = LocalDate.now();
         ArrayList<InstallmentEntity> i = (ArrayList<InstallmentEntity>) installmentRepository.findAll();
@@ -107,6 +112,7 @@ public class InstallmentService {
                         interest = 0.15F; // 15% de interés para más de 3 meses de atraso
                     }
                     float original_amount = ins.getPayment_amount();
+                    // le aplico interes al monto original
                     float interest_amount = original_amount + original_amount * interest;
                     ins.setPayment_amount(interest_amount);
                     installmentRepository.save(ins);
@@ -115,6 +121,7 @@ public class InstallmentService {
         }
     }
 
+    // Para ver si una cuota está atrasada
     public boolean isLate(InstallmentEntity inst){
         // en el caso que se haya pagado la cuota
         LocalDate due_date = inst.getDue_date();
@@ -138,6 +145,7 @@ public class InstallmentService {
         return false;
     }
 
+    // Para borrar cuota por id
     public String deleteById (InstallmentEntity installment){
         try {
             installmentRepository.deleteById(installment.getId_installment());
